@@ -23,7 +23,7 @@ class SpacyParser(object):
   en_np_labels_full = {nsubj, nsubjpass, dobj, iobj, pobj, csubj, csubjpass, attr}  # Probably others too
 
 
-  def __init__(self, model_name='en_core_web_lg', disable=['ner']) -> None:
+  def __init__(self, model_name='en_core_web_sm', disable=['ner']) -> None:
     super().__init__()
 
     self.model_name = model_name
@@ -91,8 +91,6 @@ class SpacyDocExtra(object):
         self.sentence_structs.append(sent)
       else:
         print('Empty sentence!')
-
-
 
     self.embeddings = self.embedder.get_embedding(self.sentences)
     self.embeddings = np.array(self.embeddings).tolist()

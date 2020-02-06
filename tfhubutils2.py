@@ -25,7 +25,6 @@ class TFHubContext2:
 
     self.model = hub.load(url)
 
-  @lru_cache(maxsize=512)
   def get_embedding(self, texts):
     # Reduce logging output.
     # tf.logging.set_verbosity(tf.logging.ERROR)
