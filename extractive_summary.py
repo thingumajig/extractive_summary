@@ -136,7 +136,7 @@ class ExtractiveSummary(object):
 
 def create_extractive_summary_gen(model_name='en_core_web_md', emb_name='universal-sentence-encoder-multilingual-large/3'):
   parser = SpacyParser(model_name=model_name)
-  embedder = TFHubContext2(url=emb_name)
+  embedder = get_sentence_encoder(url=emb_name)
   return ExtractiveSummary(parser=parser, embedder=embedder)
 
 
