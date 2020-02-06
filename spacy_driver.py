@@ -84,7 +84,7 @@ class SpacyDocExtra(object):
     # self.sentences = self.parser.get_sentence_structs(self.doc)
     self.sentences = []
     self.sentence_structs = []
-    for sent in doc.sents:
+    for sent in self.doc.sents:
       s = str(sent).strip()
       if s:
         self.sentences.append(s)

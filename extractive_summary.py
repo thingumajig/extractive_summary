@@ -20,11 +20,11 @@ class ExtractiveSummary(object):
 
     self.parser = parser
     self.embedder = embedder
+    self.text = ''
 
   def preprocess_text(self, t):
     t = t.strip()
     if self.text != t:
-
       self.extradoc = SpacyDocExtra(t, parser=self.parser, embedder=self.embedder)
 
 
