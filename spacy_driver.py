@@ -20,7 +20,7 @@ class SpacyParser(object):
   # csubj - clausal subject
   # csubjpass - passive clausal subject
   en_np_labels = {nsubj, nsubjpass, dobj, iobj, pobj}  # Probably others too
-  en_np_labels_full = {nsubj, nsubjpass, dobj, iobj, pobj, csubj, csubjpass, attr}  # Probably others too
+  en_np_labels_full = {nsubj, nsubjpass, dobj, iobj, pobj, csubj, csubjpass, attr, poss}  # Probably others too
 
 
   def __init__(self, model_name='en_core_web_sm', disable=['ner']) -> None:
