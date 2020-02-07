@@ -26,6 +26,8 @@ class ExtractiveSummary(object):
   def preprocess_text(self, t):
     t = t.strip()
     if self.text != t:
+      self.name_candidates_dict = None
+      self.centroids = None
       self.extradoc = SpacyDocExtra(t, parser=self.parser, embedder=self.embedder)
 
 
@@ -75,7 +77,7 @@ class ExtractiveSummary(object):
     #     print(es.sentences[sent])
     return selected_clusters
 
-  @lru_cache(maxsize=15)
+  # @lru_cache(maxsize=15)
   def get_extractive_texts(self, t, threshold=0.7, min_clusters_elements=3, n_clusters=0, minimum_sentence_len=20, max_naming_len = 30, distance_threshold = 0.95):
     self.preprocess_text(t)
     selected_clusters = self.cluster_embeddings(threshold, min_cluster_elements=min_clusters_elements, n_clusters=n_clusters)
@@ -147,7 +149,7 @@ class ExtractiveSummary(object):
     from sklearn.preprocessing import MinMaxScaler
     scaler:MinMaxScaler = MinMaxScaler()
     X = scaler.fit_transform(X)
-    print(X)
+    # print(X)
     for i, v in enumerate(X):
       wcdict[y[i]] = X[i][0]
 

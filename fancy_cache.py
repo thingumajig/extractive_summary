@@ -18,8 +18,18 @@ def get_session_id():
   session_infos = Server.get_current()._session_infos.values()
 
   for session_info in session_infos:
-    if session_info.session._main_dg == ctx.main_dg:
-      session = session_info.session
+    s = session_info.session
+    if (
+        (hasattr(s, '_main_dg') and s._main_dg == ctx.main_dg)
+        # Streamlit < 0.54.0
+        or
+        # Streamlit >= 0.54.0
+        (not hasattr(s, '_main_dg') and s.enqueue == ctx.enqueue)
+    ):
+      session = s
+
+    # if session_info.session._main_dg == ctx.main_dg:
+    #   session = session_info.session
 
   if session is None:
     raise RuntimeError(

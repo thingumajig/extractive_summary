@@ -28,9 +28,10 @@ long_text = st.text_area('Text:')
 threshold = st.sidebar.slider('threshold:', min_value=0.1, step=0.01, max_value=1., value=0.71)
 n_themes = st.sidebar.slider('themes:', min_value=0, step=1, max_value=100, value=0)
 min_cluster_elements = st.sidebar.slider('minimum theme sentences:', min_value=1, step=1, max_value=10, value=3)
-min_sent_len = st.sidebar.slider('minimum sentence len:', min_value=1, step=1, max_value=300, value=20)
+min_sent_len = st.sidebar.slider('minimum sentence len:', min_value=1, step=1, max_value=300, value=40)
 max_naming_len = st.sidebar.slider('maximum name len:', min_value=10, step=1, max_value=300, value=30)
-distance_threshold = st.sidebar.slider('phrase distance threshold:', min_value=0, step=0.01, max_value=1, value=0.95)
+distance_threshold = st.sidebar.slider('phrase distance threshold:', min_value=0., step=0.01, max_value=1., value=0.95)
+phrases_for_title = st.sidebar.slider('maximum phrases for title:', min_value=1, step=1, max_value=10, value=2)
 # st.sidebar.write(f'<hr>', unsafe_allow_html=True)
 # rus=st.sidebar.checkbox('Lang:ru', False)
 
@@ -42,7 +43,8 @@ if long_text:
   gen = get_extractive_summary_gen(lang=lang)
   l = gen.get_extractive_texts(long_text, threshold=threshold,
                                min_clusters_elements=min_cluster_elements,
-                               n_clusters=n_themes, minimum_sentence_len=min_sent_len, distance_threshold=distance_threshold)
+                               n_clusters=n_themes, minimum_sentence_len=min_sent_len,
+                               distance_threshold=distance_threshold)
 
   if len(l)>0:
     # namings = gen.get_cluster_naming(l, max_naming_len = max_naming_len)
@@ -63,7 +65,7 @@ if long_text:
       selected_sentences = theme[1]
       selected_phrases = theme[2]
       if len(selected_phrases)>0:
-        st.subheader(f'Theme: {",".join([x[0].title() for x in selected_phrases[:3]])}')
+        st.subheader(f'{", ".join([x[0].title() for x in selected_phrases[:phrases_for_title]])}')
       else:
         st.subheader(f'Theme:')
       for sent in selected_sentences:
@@ -71,3 +73,5 @@ if long_text:
       st.write(f'<hr>', unsafe_allow_html=True)
   else:
     st.write("Nothing found, change threshold")
+
+

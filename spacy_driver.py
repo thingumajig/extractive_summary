@@ -32,8 +32,8 @@ class SpacyParser(object):
     self.__internal_load()
 
   def __internal_load(self):
-    if self.model_name:
-      os.system(f'python -m spacy download {self.model_name}')
+    # if self.model_name:
+    #   os.system(f'python -m spacy download {self.model_name}')
 
     self.nlp = spacy.load(self.model_name)
 
@@ -64,7 +64,11 @@ class SpacyParser(object):
     for np in self.iter_nps(doc):
       s = ''
       for t in np.subtree:
-        s += str(t) + ' '
+        ta = str(t)
+        if ta == "'s":
+          s += ta
+        else:
+          s += ' '+ta
       yield s.strip()
 
 
